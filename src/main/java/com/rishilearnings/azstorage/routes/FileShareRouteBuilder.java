@@ -17,17 +17,17 @@ public class FileShareRouteBuilder extends RouteBuilder {
 
         // triggered when a new file is placed to given folder (not inside its subfolder)
 
-        from("azure-files://rishifilestorage/fuse/payload?move=.done&credentialType=SHARED_ACCOUNT_KEY&sharedKey=")
+        from("azure-files://rishifilestorage/fuse/payload?move=.done")
                 .log("new File found:: ${body}");
 
 
         // triggered when a new file is placed to given folder (not inside its subfolder)
 
-        from("azure-files://rishifilestorage/fuse/payload/claims?move=.done&credentialType=SHARED_ACCOUNT_KEY&sharedKey=")
+        from("azure-files://rishifilestorage/fuse/payload/claims?move=.done")
                 .log("new File under claims folder found:: ${body}")
                         .setHeader(FilesHeaders.FILE_NAME, constant("from_customer_1.xml"))
                 .setProperty("transactionId", UUID::randomUUID)
-                .toD("azure-files://rishifilestorage/fuse/dump/${exchangeProperty.transactionId}?credentialType=SHARED_ACCOUNT_KEY&sharedKey=")
+                .toD("azure-files://rishifilestorage/fuse/dump/${exchangeProperty.transactionId}")
         ;
 
 
